@@ -1,7 +1,15 @@
 /**
  * @swagger
+ * tags:
+ *   name: Books API
+ *   description: API for managing books
+ */
+
+/**
+ * @swagger
  * /books:
  *   get:
+ *     tags: [Books API]
  *     summary: Get all books
  *     responses:
  *       200:
@@ -12,6 +20,7 @@
  * @swagger
  * /books/{id}:
  *   get:
+ *     tags: [Books API]
  *     summary: Get a book by ID
  *     parameters:
  *       - in: path
@@ -32,6 +41,7 @@
  * /books:
  *   post:
  *     summary: Create a new book
+ *     tags: [Books API]
  *     description: Add a new book to the database
  *     requestBody:
  *       required: true
@@ -79,6 +89,7 @@
  * /books/{id}:
  *   put:
  *     summary: Update a book
+ *     tags: [Books API]
  *     description: Update a book's details
  *     parameters:
  *       - in: path
@@ -135,6 +146,7 @@
  * /books/{id}:
  *   delete:
  *     summary: Delete a book
+ *     tags: [Books API]
  *     parameters:
  *       - in: path
  *         name: id

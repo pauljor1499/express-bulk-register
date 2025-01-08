@@ -26,7 +26,7 @@ app.use("/", router);
 // Swagger setup
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// API routes
+// Book routes
 app.use("/books", booksRoutes);
 
 // Connect to MongoDB
