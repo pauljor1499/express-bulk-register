@@ -1,14 +1,12 @@
 const express = require("express");
 const multer = require("multer");
-const path = require("path");
-const bookService = require("../services/bookService");
-
 require("../swagger/books");
+const bookService = require("../services/bookService");
 const router = express.Router();
 
-// Configure multer for file uploads
+// Configure multer for file uploads (memory storage)
 const upload = multer({
-    dest: path.join(__dirname, "../uploads"), // Temporary upload folder
+    storage: multer.memoryStorage(), // Store file in memory instead of disk
     limits: { fileSize: 5 * 1024 * 1024 }, // Max file size: 5MB
     fileFilter: (req, file, cb) => {
         const allowedMimeTypes = [
@@ -29,8 +27,8 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             return res.status(400).json({ error: "No file uploaded." });
         }
 
-        // Pass the file path to the service
-        await bookService.createBooksFromExcel(req.file.path);
+        // Pass the file buffer to the service
+        await bookService.createBooksFromExcel(req.file.buffer);
 
         res.status(201).json({ message: "Books uploaded and created successfully." });
     } catch (error) {

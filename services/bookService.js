@@ -1,26 +1,23 @@
 const Book = require("../models/bookModel");
 const xlsx = require("xlsx");
 
-// Get all books
 const getAllBooks = async () => {
     return await Book.find();
 };
 
-// Get a book by ID
 const getBookById = async (id) => {
     return await Book.findById(id);
 };
 
-// Create a new book
 const createBook = async (bookData) => {
     const book = new Book(bookData);
     return await book.save();
 };
 
-const createBooksFromExcel = async (filePath) => {
+const createBooksFromExcel = async (fileBuffer) => {
     try {
-        // Read the Excel file
-        const workbook = xlsx.readFile(filePath);
+        // Read the Excel file from the buffer
+        const workbook = xlsx.read(fileBuffer, { type: "buffer" });
         const sheetName = workbook.SheetNames[0]; // Get the first sheet
         const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]); // Convert to JSON
 
