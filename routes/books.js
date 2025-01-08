@@ -1,8 +1,44 @@
-require("../swagger/books");
 const express = require("express");
-const router = express.Router();
+const multer = require("multer");
+const path = require("path");
 const bookService = require("../services/bookService");
 
+require("../swagger/books");
+const router = express.Router();
+
+// Configure multer for file uploads
+const upload = multer({
+    dest: path.join(__dirname, "../uploads"), // Temporary upload folder
+    limits: { fileSize: 5 * 1024 * 1024 }, // Max file size: 5MB
+    fileFilter: (req, file, cb) => {
+        const allowedMimeTypes = [
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "application/vnd.ms-excel",
+        ];
+        if (!allowedMimeTypes.includes(file.mimetype)) {
+            return cb(new Error("Invalid file type. Please upload an Excel file."));
+        }
+        cb(null, true);
+    },
+});
+
+// Route for uploading a file and creating multiple books
+router.post("/upload", upload.single("file"), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: "No file uploaded." });
+        }
+
+        // Pass the file path to the service
+        await bookService.createBooksFromExcel(req.file.path);
+
+        res.status(201).json({ message: "Books uploaded and created successfully." });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Other routes
 router.get("/", async (req, res) => {
     try {
         const books = await bookService.getAllBooks();

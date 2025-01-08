@@ -86,6 +86,33 @@
 
 /**
  * @swagger
+ * /books/upload:
+ *   post:
+ *     summary: Upload an Excel file to create multiple books
+ *     tags: [Books API]
+ *     description: Upload an Excel file to add multiple books to the database. If `publishedDate` is not provided in the file, it will default to the current date and time.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               file:
+ *                 type: string
+ *                 format: binary
+ *                 description: The Excel file containing book data
+ *     responses:
+ *       201:
+ *         description: Books created successfully
+ *       400:
+ *         description: Invalid file or format
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
  * /books/{id}:
  *   put:
  *     summary: Update a book

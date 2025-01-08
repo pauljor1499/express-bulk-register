@@ -1,4 +1,5 @@
 const Book = require("../models/bookModel");
+const xlsx = require("xlsx");
 
 // Get all books
 const getAllBooks = async () => {
@@ -16,6 +17,33 @@ const createBook = async (bookData) => {
     return await book.save();
 };
 
+const createBooksFromExcel = async (filePath) => {
+    try {
+        // Read the Excel file
+        const workbook = xlsx.readFile(filePath);
+        const sheetName = workbook.SheetNames[0]; // Get the first sheet
+        const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]); // Convert to JSON
+
+        console.log("sheetData", sheetData);
+
+        // Iterate over the data and create books
+        const createPromises = sheetData.map(async (book) => {
+            const bookData = {
+                title: book.title,
+                author: book.author,
+                publishedDate: book.publishedDate || new Date(),
+            };
+            return await createBook(bookData);
+        });
+
+        // Wait for all books to be created
+        const createdBooks = await Promise.all(createPromises);
+        console.log("Books created successfully:", createdBooks);
+    } catch (error) {
+        console.error("Error creating books from Excel file:", error);
+    }
+};
+
 // Update a book
 const updateBook = async (id, bookData) => {
     return await Book.findByIdAndUpdate(id, bookData, { new: true });
@@ -30,6 +58,7 @@ module.exports = {
     getAllBooks,
     getBookById,
     createBook,
+    createBooksFromExcel,
     updateBook,
     deleteBook,
 };
