@@ -4,7 +4,6 @@ require("../swagger/books");
 const bookService = require("../services/bookService");
 const router = express.Router();
 
-// Configure multer for file uploads (memory storage)
 const upload = multer({
     storage: multer.memoryStorage(), // Store file in memory instead of disk
     limits: { fileSize: 5 * 1024 * 1024 }, // Max file size: 5MB
@@ -20,7 +19,6 @@ const upload = multer({
     },
 });
 
-// Route for uploading a file and creating multiple books
 router.post("/upload", upload.single("file"), async (req, res) => {
     try {
         if (!req.file) {
@@ -36,7 +34,6 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
-// Other routes
 router.get("/", async (req, res) => {
     try {
         const books = await bookService.getAllBooks();
