@@ -6,6 +6,7 @@ const teacherSchema = new mongoose.Schema(
         middle_name: { type: String, required: false },
         last_name: { type: String, required: true },
         email: { type: String, required: true },
+        role: { type: String, required: true },
     },
     { versionKey: false }
 );

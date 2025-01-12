@@ -32,6 +32,7 @@ const createTeachersFromExcel = async (fileBuffer) => {
                     middle_name: teacher.middle_name,
                     last_name: teacher.last_name,
                     email: teacher.email,
+                    role: teacher.role,
                 };
                 await createTeacher(teacherData);
                 successfulUploads++; // Increment on successful creation
