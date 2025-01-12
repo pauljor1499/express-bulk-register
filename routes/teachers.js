@@ -25,9 +25,16 @@ router.post("/upload", upload.single("file"), async (req, res) => {
             return res.status(400).json({ error: "No file uploaded." });
         }
 
-        await teacherService.createTeachersFromExcel(req.file.buffer);
+        const startTime = Date.now();
+        const { successfulUploads, totalTeachers } = await teacherService.createTeachersFromExcel(req.file.buffer);
+        const endTime = Date.now();
+        const processTime = endTime - startTime; // milliseconds
 
-        res.status(201).json({ message: "Teachers uploaded and created successfully." });
+        res.status(201).json({
+            message: "Teachers uploaded and created successfully.",
+            processTime: `${processTime} ms`,
+            result: `${successfulUploads}/${totalTeachers}`,
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

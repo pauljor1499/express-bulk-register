@@ -21,22 +21,32 @@ const createTeachersFromExcel = async (fileBuffer) => {
         const sheetName = workbook.SheetNames[0]; // Get the first sheet
         const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]); // Convert to JSON
 
+        const totalTeachers = sheetData.length; // Total number of teachers
+        let successfulUploads = 0; // Counter for successful uploads
+
         // Iterate over the data and create teachers
         const createPromises = sheetData.map(async (teacher) => {
-            const teacherData = {
-                first_name: teacher.first_name,
-                middle_name: teacher.middle_name,
-                last_name: teacher.email,
-                email: teacher.email,
-            };
-            return await createTeacher(teacherData);
+            try {
+                const teacherData = {
+                    first_name: teacher.first_name,
+                    middle_name: teacher.middle_name,
+                    last_name: teacher.last_name,
+                    email: teacher.email,
+                };
+                await createTeacher(teacherData);
+                successfulUploads++; // Increment on successful creation
+            } catch (err) {
+                console.error(`Error creating teacher: ${teacher.email}`, err);
+            }
         });
 
-        // Wait for all teacher to be created
-        // const createdTeachers = await Promise.all(createPromises);
-        // console.log("Teachers created successfully:", createdTeachers);
+        // Wait for all teacher creation operations to finish
+        await Promise.all(createPromises);
+        console.log(`${successfulUploads}/${totalTeachers} teachers uploaded successfully.`);
+        return { successfulUploads, totalTeachers }; // Optionally return the result
     } catch (error) {
         console.error("Error creating teachers from Excel file:", error);
+        throw error; // Re-throw the error if needed
     }
 };
 
