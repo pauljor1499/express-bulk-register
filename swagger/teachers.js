@@ -53,6 +53,7 @@
  *               - first_name
  *               - last_name
  *               - email
+ *               - role
  *             properties:
  *               first_name:
  *                 type: string
@@ -70,6 +71,10 @@
  *                 type: string
  *                 description: The email of the teacher
  *                 example: teacher@gmail.com
+ *               role:
+ *                 type: string
+ *                 description: The teacher role
+ *                 example: teacher
  *     responses:
  *       201:
  *         description: Teacher created successfully
@@ -127,31 +132,31 @@
  *           schema:
  *             type: object
  *             required:
- *               - title
- *               - author
- *               - publishedDate
+ *               - first_name
+ *               - last_name
+ *               - email
+ *               - role
  *             properties:
- *               title:
+ *               first_name:
  *                 type: string
- *                 description: The title of the teacher
- *                 example: "The Great Gatsby"
- *               author:
+ *                 description: The first name of the teacher
+ *                 example: "John"
+ *               middle_name:
  *                 type: string
- *                 description: The author of the teacher
- *                 example: "F. Scott Fitzgerald"
- *               genre:
+ *                 description: The middle name of the teacher
+ *                 example: "Ford"
+ *               last_name:
  *                 type: string
- *                 description: The genre of the teacher
- *                 example: "Fiction"
- *               price:
- *                 type: number
- *                 description: The price of the teacher
- *                 example: 15.99
- *               publishedDate:
+ *                 description: The last name of the teacher
+ *                 example: "Waltz"
+ *               email:
  *                 type: string
- *                 format: date
- *                 description: The publication date of the teacher
- *                 example: "1925-04-10"
+ *                 description: The email of the teacher
+ *                 example: teacher@gmail.com
+ *               role:
+ *                 type: string
+ *                 description: The teacher role
+ *                 example: teacher
  *     responses:
  *       200:
  *         description: Teacher updated successfully
