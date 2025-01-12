@@ -9,8 +9,8 @@ const getTeacherById = async (id) => {
     return await Teacher.findById(id);
 };
 
-const createTeacher = async (bookData) => {
-    const teacher = new Teacher(bookData);
+const createTeacher = async (teacherData) => {
+    const teacher = new Teacher(teacherData);
     return await teacher.save();
 };
 
@@ -21,27 +21,27 @@ const createTeachersFromExcel = async (fileBuffer) => {
         const sheetName = workbook.SheetNames[0]; // Get the first sheet
         const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]); // Convert to JSON
 
-        // Iterate over the data and create books
-        const createPromises = sheetData.map(async (book) => {
-            const bookData = {
-                first_name: book.first_name,
-                middle_name: book.middle_name,
-                last_name: book.email,
-                email: book.email,
+        // Iterate over the data and create teachers
+        const createPromises = sheetData.map(async (teacher) => {
+            const teacherData = {
+                first_name: teacher.first_name,
+                middle_name: teacher.middle_name,
+                last_name: teacher.email,
+                email: teacher.email,
             };
-            return await createTeacher(bookData);
+            return await createTeacher(teacherData);
         });
 
-        // Wait for all books to be created
-        const createdBooks = await Promise.all(createPromises);
-        console.log("Books created successfully:", createdBooks);
+        // Wait for all teacher to be created
+        const createdTeachers = await Promise.all(createPromises);
+        console.log("Teachers created successfully:", createdTeachers);
     } catch (error) {
-        console.error("Error creating books from Excel file:", error);
+        console.error("Error creating teachers from Excel file:", error);
     }
 };
 
-const updateTeacher = async (id, bookData) => {
-    return await Teacher.findByIdAndUpdate(id, bookData, { new: true });
+const updateTeacher = async (id, teacherData) => {
+    return await Teacher.findByIdAndUpdate(id, teacherData, { new: true });
 };
 
 const deleteTeacher = async (id) => {
