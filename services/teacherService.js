@@ -21,8 +21,6 @@ const createTeachersFromExcel = async (fileBuffer) => {
         const sheetName = workbook.SheetNames[0]; // Get the first sheet
         const sheetData = xlsx.utils.sheet_to_json(workbook.Sheets[sheetName]); // Convert to JSON
 
-        console.log("sheetData", sheetData);
-
         // Iterate over the data and create books
         const createPromises = sheetData.map(async (book) => {
             const bookData = {
