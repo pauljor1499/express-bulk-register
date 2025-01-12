@@ -33,8 +33,8 @@ const createStudentsFromExcel = async (fileBuffer) => {
         });
 
         // Wait for all students to be created
-        const createdStudents = await Promise.all(createPromises);
-        console.log("Students created successfully:", createdStudents);
+        // const createdStudents = await Promise.all(createPromises);
+        // console.log("Students created successfully:", createdStudents);
     } catch (error) {
         console.error("Error creating students from Excel file:", error);
     }
