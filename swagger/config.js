@@ -1,13 +1,12 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 const swaggerUi = require("swagger-ui-express");
 
-// Swagger definition
 const swaggerDefinition = {
     openapi: "3.0.0",
     info: {
         title: "Express API",
         version: "1.0.0",
-        description: "A simple CRUD API.",
+        description: "User management APIs",
     },
     servers: [
         {
@@ -18,7 +17,7 @@ const swaggerDefinition = {
 
 const options = {
     swaggerDefinition,
-    apis: ["./routes/*.js", "./swagger/users.js"],
+    apis: ["./routes/*.js", "./swagger/teachers.js", "./swagger/students.js"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
