@@ -90,7 +90,7 @@
  *   post:
  *     summary: Upload an Excel file to create multiple student
  *     tags: [Students API]
- *     description: Upload an Excel file to add multiple student to the database. If `publishedDate` is not provided in the file, it will default to the current date and time.
+ *     description: Upload an Excel file to add multiple student to the database.
  *     requestBody:
  *       required: true
  *       content:

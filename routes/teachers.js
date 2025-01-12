@@ -87,21 +87,4 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// router.post("/upload", upload.single("file"), async (req, res) => {
-//     try {
-//         const filePath = req.file.path;
-
-//         // Assuming teacherService has a method to process the file
-//         const result = await teacherService.processTeacherExcel(filePath);
-
-//         res.status(201).json({ message: "Teachers created successfully", data: result });
-//     } catch (error) {
-//         if (error instanceof teacherService.InvalidFileError) {
-//             res.status(400).json({ error: error.message });
-//         } else {
-//             res.status(500).json({ error: error.message });
-//         }
-//     }
-// });
-
 module.exports = router;
