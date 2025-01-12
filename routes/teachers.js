@@ -40,7 +40,7 @@ router.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.get("/fetch", async (req, res) => {
     try {
         const teachers = await teacherService.getAllTeachers();
         res.json(teachers);
@@ -49,7 +49,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id/specific/fetch", async (req, res) => {
     try {
         const teacher = await teacherService.getTeacherById(req.params.id);
         if (!teacher) {
@@ -61,7 +61,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         const teacher = await teacherService.createTeacher(req.body);
         res.status(201).json(teacher);
@@ -70,7 +70,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id/specific/update", async (req, res) => {
     try {
         const teacher = await teacherService.updateTeacher(req.params.id, req.body);
         if (!teacher) {
@@ -82,7 +82,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/specific/delete", async (req, res) => {
     try {
         const result = await teacherService.deleteTeacher(req.params.id);
         if (!result) {

@@ -7,7 +7,7 @@
 
 /**
  * @swagger
- * /teacher:
+ * /teacher/fetch:
  *   get:
  *     tags: [Teachers API]
  *     summary: Get all teacher
@@ -18,7 +18,7 @@
 
 /**
  * @swagger
- * /teacher/{id}:
+ * /teacher/{id}/specific/fetch:
  *   get:
  *     tags: [Teachers API]
  *     summary: Get a teacher by ID
@@ -38,7 +38,7 @@
 
 /**
  * @swagger
- * /teacher:
+ * /teacher/create:
  *   post:
  *     summary: Create a new teacher
  *     tags: [Teachers API]
@@ -113,7 +113,7 @@
 
 /**
  * @swagger
- * /teacher/{id}:
+ * /teacher/{id}/specific/update:
  *   put:
  *     summary: Update a teacher
  *     tags: [Teachers API]
@@ -170,7 +170,7 @@
 
 /**
  * @swagger
- * /teacher/{id}:
+ * /teacher/{id}/specific/delete:
  *   delete:
  *     summary: Delete a teacher
  *     tags: [Teachers API]
