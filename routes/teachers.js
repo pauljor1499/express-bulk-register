@@ -26,14 +26,16 @@ router.post("/upload", upload.single("file"), async (req, res) => {
         }
 
         const startTime = Date.now();
-        const { successfulUploads, totalTeachers } = await teacherService.createTeachersFromExcel(req.file.buffer);
+        const response = await teacherService.createTeachersFromExcel(req.file.buffer);
         const endTime = Date.now();
         const processTime = endTime - startTime; // milliseconds
 
         res.status(201).json({
             message: "Teachers uploaded and created successfully.",
             processTime: `${processTime} ms`,
-            result: `${successfulUploads}/${totalTeachers}`,
+            result: `${response.successfulUploads}/${response.totalTeachers}`,
+            successfulUploadNames: response.successfulUploadNames,
+            unsuccessfulUploadNames: response.unsuccessfulUploadNames,
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
